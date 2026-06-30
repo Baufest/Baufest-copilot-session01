@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta, timezone
 
 from fastapi import Depends, FastAPI, HTTPException, status
@@ -8,14 +9,17 @@ from pydantic import BaseModel
 
 app = FastAPI(title="JWT FastAPI Example")
 
-SECRET_KEY = "change-this-secret-in-production"
+SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
 ALGORITHM = "HS256"
 TOKEN_EXPIRE_SECONDS = 300
 ADMIN_USERNAME = "admin"
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
-ADMIN_PASSWORD_HASH = pwd_context.hash("admin123")
+ADMIN_PASSWORD_HASH = os.getenv(
+    "ADMIN_PASSWORD_HASH",
+    "$2b$12$wz24yCN0kD/YhUxyaQ0eTO0nkpFD7lFqumvdB6KDjgJi1wJj/3gHi",
+)
 
 
 class LoginRequest(BaseModel):

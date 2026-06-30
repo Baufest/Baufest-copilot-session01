@@ -16,6 +16,11 @@ La gestión de dependencias se realiza con Poetry y en `pyproject.toml` se defin
 - `passlib[bcrypt]`
 - `bcrypt >=3.2,<4.0` para compatibilidad con passlib 1.7.x
 
+Variables opcionales de entorno:
+
+- `SECRET_KEY`: clave para firmar JWT.
+- `ADMIN_PASSWORD_HASH`: hash bcrypt de la contraseña del usuario `admin`.
+
 ## Instalación y ejecución local
 
 Desde la carpeta `backend`:
